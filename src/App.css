@@ -1,0 +1,31 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.container-form{
+  /* border: 1px solid black !important; */
+  padding: 10px !important;
+  border-radius: 5px;
+  box-shadow: rgba(9, 11, 17, 0.05) 0px 5px 15px 0px, rgba(19, 23, 32, 0.05) 0px 15px 35px -5px;
+}
+
+.before-after {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.before-after::before, .before-after::after{
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: gray;
+}
+.before-after::before{
+  margin-right: 1%;
+}
+.before-after::after{
+  margin-left: 1%;
+}

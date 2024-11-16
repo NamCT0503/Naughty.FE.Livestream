@@ -1,0 +1,77 @@
+.container-form.signin{
+    width: 500px;
+    /* height: 600px; */
+    height: fit-content;
+    border-color: #e3e3e3;
+    border: 1px solid hsla(220, 20%, 80%, 0.4);
+    border-radius: 10px;
+    padding: 20px 50px !important;
+}
+
+.input-in4.signin {
+    /* background-color: #05070A; */
+    background-color: #f8f8f8;
+    outline: none !important;
+    color: #34495e !important;
+}
+/* label, input, h1, p{
+    color: #34495e !important;
+} */
+
+.area-checkbox-switch{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-signin {
+    padding: 10px !important;
+    margin: 10px !important;
+    border-radius: 10px !important;
+    background-image: linear-gradient(109.6deg, rgb(36, 45, 57) 11.2%, rgb(16, 37, 60) 51.2%, rgb(0, 0, 0) 98.6%) !important;
+    background-color: #34495e !important;
+    transition: all 0.5s ease-in-out;
+}
+.btn-signin:hover{
+    background: #34495e !important;
+}
+
+.btn-signin.options{
+    background-image: none !important;
+    background-color: #f8f8f8 !important;
+    color: #34495e;
+    transition: all 0.3s ease-in-out;
+}
+.btn-signin.options:hover{
+    background-color: #d8d8d8 !important;
+}
+
+#forgot-password, #quick-signup{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    color: #34495e;
+}
+#forgot-password::after, #quick-signup::after{
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: grey;
+    transition: width 0.3s ease-in-out;
+}
+#forgot-password:hover::after, #quick-signup:hover::after {
+    width: 0%;
+}
+
+.fas{
+    margin-right: 10px;
+    padding: 2px;
+}
+
+.quick-signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
