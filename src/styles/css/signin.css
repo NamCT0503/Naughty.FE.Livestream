@@ -18,6 +18,26 @@
     color: #34495e !important;
 } */
 
+.area-input-password.auth{
+    position: relative;
+    /* border: 1px solid black; */
+    margin: 15px 0;
+    border: none;
+    outline: none;
+}
+.area-input-password.auth div label {
+    background-color: whitesmoke;
+    padding: 0 5px;
+}
+.area-input-password.auth span{
+    width: fit-content;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 .area-checkbox-switch{
     display: flex;
     justify-content: space-between;
