@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { customIcon } from "../../styles/icon/icon.jsx";
 import { API_SERVER } from "../../router/router.server.js";
 import Cookie from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const SigninJSX = () => {
     const [isRoleAdmin, setIsRoleAdmin] = useState(true);
@@ -20,6 +21,8 @@ const SigninJSX = () => {
         password: '',
         username: ''
     });
+
+    const navigate = useNavigate();
 
     const handelUrl = () => {
         if(isRoleAdmin){
@@ -49,6 +52,9 @@ const SigninJSX = () => {
 
             const res = await fetch(url, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(dataForm)
             });
 
@@ -61,6 +67,7 @@ const SigninJSX = () => {
                 Cookie.set('refreshToken', dataRes.refreshToken);
                 Cookie.set('role', role? role: 'admin');
                 Cookie.set('sub', sub);
+                navigate('/creator');
                 return alert('Đăng nhập thành công!');
             }
 
