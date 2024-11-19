@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid2';
 import { Skeleton, demoTheme, stringAvatar } from '../../../service/service.component';
 import logo from "../../../../public/vite.svg";
 import CreatorDashboard from './Dashboard';
-import { Avatar } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 import { sendReq } from '../../../service/service.api';
 import { API_SERVER } from '../../../router/router.server';
 
@@ -146,8 +146,11 @@ export default function CreatorIndex() {
     >
       <DashboardLayout>
         <PageContainer>
+          <Box sx={{ flexGrow: 1}}>
+            <CreatorDashboard props={profile} />
+          </Box>
           <Grid container spacing={1}>
-            <CreatorDashboard/>
+            {/* <CreatorDashboard props={profile} /> */}
             <Grid size={12}>
                 <Skeleton height={14} />
             </Grid>

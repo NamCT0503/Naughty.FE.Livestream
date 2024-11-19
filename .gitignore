@@ -26,3 +26,5 @@ dist-ssr
 # Orther
 .env
 .env.*
+*.config.js
+src/config

@@ -1,4 +1,4 @@
-const DOMAIN_SERVER = 'http://localhost:5000';
+export const DOMAIN_SERVER = 'http://localhost:5000';
 
 export const API_SERVER = {
     // ===== Both =====
@@ -10,8 +10,13 @@ export const API_SERVER = {
     ADMIN_CREATENEWACC: `${DOMAIN_SERVER}/api/admin/create-new-admin`,
 
     // ===== User =====
+    //Auth
     USER_SIGNIN: `${DOMAIN_SERVER}/api/user/signin`,
-    USER_SIGNUP: `${DOMAIN_SERVER}/api/user/signup`
+    USER_SIGNUP: `${DOMAIN_SERVER}/api/user/signup`,
+
+    // === Creator ===
+    //Stream
+    GET_ALL_STREAM_OWNER: `${DOMAIN_SERVER}/api/user/stream/get-all-streams-by/:creator_id/:page`
 }
 
 export const API_Nanostream = {

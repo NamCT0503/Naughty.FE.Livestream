@@ -1,0 +1,47 @@
+.wrap-container.creator-dashboard{
+    border: 1px solid white;
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+}
+.wrap-container.creator-dashboard > * {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.area-title.creator-dashboard{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.area-title.creator-dashboard h1 {
+    width: 100%;
+    max-width: 600px;
+    min-width: 100px;
+}
+#live-svg{
+    height: 100px !important;
+    width: auto !important;
+}
+
+.area-statistical.creator-dashboard {
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.area-statistical.creator-dashboard:hover{
+    transform: scale(1.05);
+}
+
+.area-detail-info.creator-dashboar{
+    width: 100%;
+}
+.area-detail-info.creator-dashboar img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
