@@ -13,48 +13,9 @@ import CreatorDashboard from './Dashboard';
 import { Avatar, Box } from '@mui/material';
 import { sendReq } from '../../../service/service.api';
 import { API_SERVER } from '../../../router/router.server';
-
-// Định nghĩa navbar
-const NAVIGATION = [
-  {
-    kind: 'header',
-    title: 'Main items',
-  },
-  {
-    segment: 'dashboard',
-    title: 'Tổng quan',
-    icon: <DashboardIcon />,
-  },
-  {
-    segment: 'orders',
-    title: 'Stream',
-    icon: <CastConnectedIcon />,
-  },
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Analytics',
-  },
-  {
-    segment: 'reports',
-    title: 'Báo cáo',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-];
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import CreatorStream from './Stream';
+import SkeletonJSX from '../../Skeleton';
 
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
@@ -63,7 +24,10 @@ function useDemoRouter(initialPath) {
     return {
       pathname,
       searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(String(path)),
+      navigate: (path) => {
+        setPathname(String(path)),
+        window.history.pushState({}, '', path);
+      }
     };
   }, [pathname]);
 
@@ -71,9 +35,56 @@ function useDemoRouter(initialPath) {
 }
 
 export default function CreatorIndex() {
-  const router = useDemoRouter('/dashboard');
+  const router = useDemoRouter('/creator/dashboard');
 
   const [profile, setProfile] = React.useState({});
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Định nghĩa navbar
+  const NAVIGATION = [
+    {
+      kind: 'header',
+      title: 'Main items',
+    },
+    {
+      segment: 'creator/dashboard',
+      title: 'Tổng quan',
+      icon: <DashboardIcon />,
+      onclick: () => navigate('/dashboard')
+    },
+    {
+      segment: 'creator/streams',
+      title: 'Stream',
+      icon: <CastConnectedIcon />,
+      onclick: () => navigate('/streams')
+    },
+    {
+      kind: 'divider',
+    },
+    {
+      kind: 'header',
+      title: 'Analytics',
+    },
+    {
+      segment: 'creator/reports',
+      title: 'Báo cáo',
+      icon: <BarChartIcon />,
+      children: [
+        {
+          segment: 'sales',
+          title: 'Sales',
+          icon: <DescriptionIcon />,
+        },
+        {
+          segment: 'traffic',
+          title: 'Traffic',
+          icon: <DescriptionIcon />,
+        },
+      ],
+    },
+  ];
 
   React.useEffect(() => {
     const url_getInfoAcc = API_SERVER.GET_PROFILE;
@@ -86,7 +97,6 @@ export default function CreatorIndex() {
     }
     fetcher();
   }, []);
-  console.log('profile: ', profile)
 
   const [session, setSession] = React.useState({
     user: {
@@ -136,8 +146,14 @@ export default function CreatorIndex() {
     <AppProvider
       session={session}
       authentication={authentication}
-      navigation={NAVIGATION}
-      router={router}
+      navigation={NAVIGATION.map(item => ({
+        ...item,
+        onclick: item.onclick || null
+      }))}
+      router={{
+        pathname: location.pathname,
+        navigate: navigate
+      }}
       theme={demoTheme}
       branding={{
         logo: <img src={logo} alt='Logo'/>,
@@ -147,43 +163,14 @@ export default function CreatorIndex() {
       <DashboardLayout>
         <PageContainer>
           <Box sx={{ flexGrow: 1}}>
-            <CreatorDashboard props={profile} />
+            <Routes>
+              <Route path='/dashboard' element={<CreatorDashboard props={profile} />} />
+              <Route path='/streams' element={<CreatorStream />} />
+            </Routes>
           </Box>
-          <Grid container spacing={1}>
-            {/* <CreatorDashboard props={profile} /> */}
-            <Grid size={12}>
-                <Skeleton height={14} />
-            </Grid>
-            <Grid size={12}>
-                <Skeleton height={14} />
-            </Grid>
-            <Grid size={4}>
-                <Skeleton height={100} />
-            </Grid>
-            <Grid size={8}>
-                <Skeleton height={100} />
-            </Grid>
-
-            <Grid size={12}>
-                <Skeleton height={150} />
-            </Grid>
-            <Grid size={12}>
-                <Skeleton height={14} />
-            </Grid>
-
-            <Grid size={3}>
-                <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-                <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-                <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-                <Skeleton height={100} />
-            </Grid>
-          </Grid>
+          
+          {/* Nội dung hiển thị trong quá trình chờ tải trang */}
+          {/* <SkeletonJSX/> */}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>
