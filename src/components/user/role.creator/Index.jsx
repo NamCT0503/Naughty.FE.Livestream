@@ -3,6 +3,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import CastConnectedIcon from '@mui/icons-material/CastConnected';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DescriptionIcon from '@mui/icons-material/Description';
+import StreamOverView from "@mui/icons-material/Camera";
+import LivestreamIcon from "@mui/icons-material/WifiTethering";
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
@@ -16,6 +18,7 @@ import { API_SERVER } from '../../../router/router.server';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import CreatorStream from './Stream';
 import SkeletonJSX from '../../Skeleton';
+import Livestream from './Livestream';
 
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
@@ -58,7 +61,20 @@ export default function CreatorIndex() {
       segment: 'creator/streams',
       title: 'Stream',
       icon: <CastConnectedIcon />,
-      onclick: () => navigate('/streams')
+      children: [
+        {
+          segment: 'overview',
+          title: 'Danh sách Stream của tôi',
+          icon: <StreamOverView />,
+          onclick: () => navigate('/streams/overview')
+        },
+        {
+          segment: 'live',
+          title: 'Livestream',
+          icon: <LivestreamIcon />,
+          onclick: () => navigate('/streams/live')
+        }
+      ]
     },
     {
       kind: 'divider',
@@ -162,10 +178,11 @@ export default function CreatorIndex() {
     >
       <DashboardLayout>
         <PageContainer>
-          <Box sx={{ flexGrow: 1}}>
+          <Box sx={{ flexGrow: 1 }}>
             <Routes>
               <Route path='/dashboard' element={<CreatorDashboard props={profile} />} />
-              <Route path='/streams' element={<CreatorStream />} />
+              <Route path='/streams/overview' element={<CreatorStream />} />
+              <Route path='/streams/live' element={<Livestream />} />
             </Routes>
           </Box>
           

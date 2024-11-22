@@ -29,5 +29,7 @@ export const API_Nanostream = {
     STREAM_GROUP_INFO: 'https://bintu.nanocosmos.de/stream/:id/group',
     CREATE_STREAM: 'https://bintu.nanocosmos.de/stream',
     STOP_STREAM: 'https://bintu.nanocosmos.de/stream/:id/stop',
-    DELETE_STREAM: 'https://bintu.nanocosmos.de/stream/:id'
+    DELETE_STREAM: 'https://bintu.nanocosmos.de/stream/:id',
+
+    CHANGE_TAGS: 'https://bintu.nanocosmos.de/stream/:id/tag'
 }

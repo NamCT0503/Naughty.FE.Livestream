@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { NanostreamConfig } from "../config/nanostream.config";
 
 export const sendReq = async (url, options = {}) => {
     const accessToken = Cookies.get('accessToken');
@@ -14,6 +15,23 @@ export const sendReq = async (url, options = {}) => {
         headers,
     });
 };
+
+export const sendStreamReq = async (url, options = {}) => {
+    try {
+        const apiKey = NanostreamConfig.API_KEY;
+        const headers = {
+            ...options.headers,
+            'X-BINTU-APIKEY': apiKey
+        }
+
+        return fetch(url, {
+            ...options,
+            headers
+        });
+    } catch (error) {
+        console.error('[Send Req Stream Error]: ', error);
+    }   
+}
 
 export const convertToTimeFormatHHMMSS = (seconds) => {
     const hours = Math.floor(seconds / 3600);

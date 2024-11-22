@@ -75,26 +75,6 @@ const TableIndex = ({ props }) => {
         if(isLaptop) setColumn(colLaptop);
     }, [isMobile, isTablet, isLaptop]);
 
-    // const columns = [
-    //     { field: 'id', headerName: 'ID', sortable: true, filterable: true, align: 'center', headerAlign: 'center', width: 20, maxWidth: 20},
-    //     { field: 'image', headerName: 'Ảnh bìa', display: 'flex', headerAlign: 'center', maxWidth: 150, minWidth: 150, align: 'center', renderCell: (params) => (
-    //         <img
-    //             src={params.value.startsWith('http')? params.value: `${DOMAIN_SERVER}/${params.value}`}
-    //             alt="Ảnh bìa"
-    //             style={{ width: '100px', height: 'auto', objectFit: 'cover', padding: '5px' }}
-    //         />
-    //     )},
-    //     { field: 'title', headerName: 'Tiêu đề', sortable: true, filterable: true, headerAlign: 'center', width: 300},
-    //     { field: 'start_time', headerName: 'Bắt đầu live', sortable: true, headerAlign: 'center', width: 180, align: 'center'},
-    //     { field: 'end_time', headerName: 'Kết thúc live', sortable: true, headerAlign: 'center', width: 180, align: 'center', renderCell: (params) => (
-    //         <span>{params.value? params.value: 'Tạm chưa có'}</span>
-    //     )},
-    //     { field: 'timeLive', headerName: 'Thời lượng live', sortable: true, headerAlign: 'center', width: 150, align: 'center', renderCell: (params) => (
-    //         <span>{params.value? convertToTimeFormatHHMMSS(params.value): 'Tạm chưa có'}</span>
-    //     )},
-    //     { field: 'totalView', headerName: 'Lượt xem', sortable: true, headerAlign: 'center', align: 'center'}
-    // ]
-
     const fetchData = async (page) => {
         try {
             const url = url_getAllStreamOwner.replace(':page', page);
