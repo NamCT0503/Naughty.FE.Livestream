@@ -18,7 +18,6 @@ const DiaLogInitstream = (props) => {
         title: ''
     });
     const [thumbnailLastest, setThumbnailLastest] = useState();
-    const [streamVideo, setStreamVideo] = useState();
 
     useEffect(() => {
         const fetcher = async (url) => {
@@ -53,6 +52,9 @@ const DiaLogInitstream = (props) => {
         if(res.ok){
             const dataRes = await res.json();
             const streamname = dataRes.ingest.rtmp.streamname;
+            const streamid = dataRes.id;
+            setStream.setStreamId(streamid);
+            setStream.setStreamName(streamname);
             if(!streamname) return alert('Lỗi xử lý stream!');
 
             // Cấu hình thông tin webcaster stream
@@ -77,6 +79,7 @@ const DiaLogInitstream = (props) => {
                     const accessToken = Cookies.get('accessToken');
                     const formData = new FormData();
                     formData.append('img', file);
+                    formData.append('stream_url', `${API_Nanostream.STREAM_SINGLE}${streamname}`);
 
                     const resThumbnail = await fetch(url_createThumbnail, {
                         method: "POST",
@@ -109,7 +112,8 @@ const DiaLogInitstream = (props) => {
                     const resDB = await sendReq(url_saveStreamDB, {
                         method: "POST",
                         body: JSON.stringify({
-                            title: dataForm.title
+                            title: dataForm.title,
+                            stream_url: `${API_Nanostream.STREAM_SINGLE}${streamname}`
                         })
                     });
                     
@@ -137,8 +141,7 @@ const DiaLogInitstream = (props) => {
         if(videoRef.current){
             videoRef.current.srcObject = getVideoLocal;
         }
-        console.log("MediaStream: ", getVideoLocal);
-        setStreamVideo(getVideoLocal);
+        setStream.setStreamVideo(getVideoLocal);
 
         onClose(); // Đóng khung khởi tạo stream.
         setDisplay.setDisplayComponent(display => display==='flex'? 'none !important': 'flex');
@@ -151,10 +154,10 @@ const DiaLogInitstream = (props) => {
         });
     }
 
-    console.log('file: ', file);
-    console.log('thumbnail: ', thumbnailLastest);
-    console.log('record id: ', stream.recordStreamId);
-    console.log("Video Element: ", videoRef.current);
+    // console.log('file: ', file);
+    // console.log('thumbnail: ', thumbnailLastest);
+    // console.log('record id: ', stream.recordStreamId);
+    // console.log("Video Element: ", videoRef.current);
     return(
         <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
             <DialogTitle>Thông tin stream</DialogTitle>

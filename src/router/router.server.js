@@ -19,13 +19,15 @@ export const API_SERVER = {
     GET_ALL_STREAM_OWNER: `${DOMAIN_SERVER}/api/user/stream/get-all-streams-by/:creator_id/:page`,
     GET_STREAM_BY_ID: `${DOMAIN_SERVER}/api/user/stream/get-stream/:streamid`,
     CREATE_STREAM: `${DOMAIN_SERVER}/api/user/stream/create`,
+    UPDATE_STREAM: `${DOMAIN_SERVER}/api/user/stream/update`,
     //Thumbnail
     GETLIST_THUMBNAIL: `${DOMAIN_SERVER}/api/user/thumbnail/get-list`,
     CREATE_THUMBNAIL: `${DOMAIN_SERVER}/api/user/thumbnail/create`
 }
 
 export const API_Nanostream = {
-    START_STREAM: 'https://bintu-webrtc.nanocosmos.de/p/webrtc?stream_name=:streamName&stream_url=rtmp://:streamName.bintu-vtrans.nanocosmos.de/live&audio_bitrate=64000',
+    // START_STREAM: 'https://bintu-webrtc.nanocosmos.de/p/webrtc?stream_name=:streamName&stream_url=rtmp://:streamName.bintu-vtrans.nanocosmos.de/live&audio_bitrate=64000',
+    START_STREAM: 'https://bintu-webrtc.nanocosmos.de/p/webrtc?stream_name=:streamName&stream_url=rtmp://bintu-stream.nanocosmos.de:1935/live&audio_bitrate=64000',
 
     STREAM_SINGLE: 'https://demo.nanocosmos.de/nanoplayer/embed/1.3.3/nanoplayer.html?entry.rtmp.streamname=',
     STREAM_GROUP: 'https://demo.nanocosmos.de/nanoplayer/embed/1.3.3/nanoplayer.html?group.id=',

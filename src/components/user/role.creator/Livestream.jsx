@@ -8,6 +8,7 @@ import { sendReq, sendStreamReq, timeClockStream } from "../../../service/servic
 import { API_Nanostream, API_SERVER, DOMAIN_SERVER } from "../../../router/router.server";
 import SettingStreamJSX from "./components_2nd/stream/SettingStream";
 import DiaLogInitstream from "./components_2nd/stream/Dialog.InitStream";
+import { NanostreamConfig } from "../../../config/nanostream.config";
 
 const mic_on = <i className="fa-solid fa-microphone"></i>;
 const mic_off = <i className="fa-solid fa-microphone-slash"></i>;
@@ -33,6 +34,7 @@ const Livestream = () => {
     const [isShowStream, setIsShowStream] = useState(true); // Hiển thị khung livestream
     const [openSetting, setOpenSetting] = useState(false);
     const [openInitStreamDialog, setOpenInitStreamDialog] = useState(false);
+    const [isStartStream, setIsStartStream] = useState(true);
 
 
     // Tạo kết nối ban đầu cho peer
@@ -44,6 +46,7 @@ const Livestream = () => {
     const videoRef = useRef(null);
     const peerConnection = new RTCPeerConnection(configWebRTC);
 
+    // Cài đặt script webcaster nanostream.
     useEffect(() => {
         const script = document.createElement('script');
         script.src = '/src/nanostream/webcaster-main/dist/nanostream.webcaster.js';
@@ -109,8 +112,100 @@ const Livestream = () => {
         setOpenSetting(!openSetting);
     }
 
+    const handleStartStream = async () => {
+        try {
+            if(!streamName) return alert('Stream chưa được khởi tạo!');
+
+            const sdpOffer = await createSDPOffer();
+            const res = await fetch(API_Nanostream.START_STREAM.replaceAll(':streamName', streamName), {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: `${sdpOffer}`
+            });
+
+            if(res.ok){
+                const dataRes = await res.text();
+                console.log('res startStream: ', dataRes);
+
+                await peerConnection.setRemoteDescription(new RTCSessionDescription({
+                    type: 'answer',
+                    sdp: dataRes
+                }));
+                setIsStartStream(false);
+                return alert('Livestream đã bắt đầu!');
+            }
+            return alert('Lỗi quá trình bắt đầu livestream!');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const createSDPOffer = async () => {
+        if(!streamVideo) return alert('Stream chưa được khởi tạo!');
+
+        streamVideo.getTracks().forEach(tracks => {
+            peerConnection.addTrack(tracks, streamVideo)
+        });
+
+        // Tạo SDP Offer
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+
+        // Lấy SDP Offer dưới dạng chuỗi
+        return offer.sdp;
+    }
+
+    const handleStopLivestream = async () => {
+        try {
+            if(!streamId) return alert('Stream chưa được khởi tạo!');
+
+            const url = API_Nanostream.STOP_STREAM.replace(':id', streamId);
+            const res = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-BINTU-APIKEY': NanostreamConfig.API_KEY
+                }
+            });
+            if(res.ok){
+                const url_stopStreamDB = API_SERVER.UPDATE_STREAM;
+                const resDB = await sendReq(url_stopStreamDB, {
+                    method: "PUT",
+                    body: JSON.stringify({ 
+                        id: recordStreamId,
+                        end_time: new Date()
+                    })
+                });
+                const dataResDB = await resDB.json();
+                if(resDB.ok){
+                    setStreamName('');
+                    setStreamId('');
+                    setIsStartStream(true);
+                    setDisplayComponent('flex');
+                    setIsShowStream(true);
+
+                    if(streamVideo){
+                        streamVideo.getTracks().forEach(tracks => tracks.stop());
+                        if(videoRef.current){
+                            videoRef.current.srcObject = null
+                        }
+                    }
+
+                    return alert('Đã dừng livestream!');
+                }
+                return alert(dataResDB.message? dataResDB.message: "Lỗi quá trình dừng livestream!");
+            }
+            return alert('Lỗi quá trình dừng stream!');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     console.log('info: ', infoStream);
-    console.log('stream id record: ', recordStreamId);
+    // console.log('stream id record: ', recordStreamId);
+    console.log('stream video: ', streamVideo)
     return(
         <>
             <Grid 
@@ -129,8 +224,8 @@ const Livestream = () => {
                     <DiaLogInitstream 
                         open={openInitStreamDialog}
                         onClose={() => setOpenInitStreamDialog(false)}
-                        stream={{ streamName, streamId, recordStreamId }}
-                        setStream={{ setStreamName, setStreamId, setRecordStreamId }}
+                        stream={{ streamName, streamId, recordStreamId, streamVideo }}
+                        setStream={{ setStreamName, setStreamId, setRecordStreamId, setStreamVideo }}
                         display={{ displayComponent, isShowStream }}
                         setDisplay={{ setDisplayComponent, setIsShowStream }}
                         videoRef={ videoRef }
@@ -150,7 +245,9 @@ const Livestream = () => {
                             <button>{iconCam}</button>
                         </div>
                         <div className="btn-start-live">
-                            <Button variant="contained">Bắt đầu live</Button>
+                            <Button variant="contained" onClick={isStartStream? handleStartStream: handleStopLivestream}>
+                                {isStartStream? 'Bắt đầu live': 'Dừng live'}
+                            </Button>
                         </div>
                         <div className="btn-setting" onClick={handleClickSetting}>
                             <button>{setting}</button>

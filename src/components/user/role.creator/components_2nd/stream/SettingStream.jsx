@@ -60,9 +60,9 @@ const SettingStreamJSX = (props) => {
         return alert('Lỗi quá trình cập nhật tag!');
     }
 
-    console.log('tag: ', inputSetting.tag);
-    console.log('all tag: ', tags);
-    console.log('stream: ', stream);
+    // console.log('tag: ', inputSetting.tag);
+    // console.log('all tag: ', tags);
+    // console.log('stream: ', stream);
     return(
         <Dialog open={open} onClose={onClose} scroll="paper" maxWidth="md" fullWidth>
             <DialogTitle>Cài đặt Phát trực tiếp</DialogTitle>
