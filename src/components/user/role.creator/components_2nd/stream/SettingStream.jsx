@@ -1,8 +1,10 @@
 import { Button, Dialog, DialogTitle, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+import { API_Nanostream, API_SERVER } from "../../../../../router/router.server";
+import { sendStreamReq } from "../../../../../service/service.api";
 
 const SettingStreamJSX = (props) => {
-    const { onClose, currentTheme, tagsValue, open } = props;
+    const { onClose, currentTheme, stream, open } = props;
 
     const [tags, setTags] = useState([]);
     const [inputSetting, setInputSetting] = useState({
@@ -11,15 +13,6 @@ const SettingStreamJSX = (props) => {
 
     const inputTagRef = useRef();
     const tagAppendChild = useRef();
-
-    // useEffect(() => {
-    //     if(tagAppendChild.current && tags.length>=0){
-    //         const newTag = document.createElement('div');
-    //         newTag.textContent = tags.at(-1);
-    //         newTag.className = 'tags-stream';
-    //         tagAppendChild.current.appendChild(newTag);
-    //     }
-    // }, [tags]);
 
     const handleDataChange = (e) => {
         setInputSetting({
@@ -45,8 +38,31 @@ const SettingStreamJSX = (props) => {
         setTags((prevTags) => prevTags.filter((_, i) => i !== index));
     }
 
+    const handleChangeTag = async () => {
+        if(tags.length===0) {
+            onClose();
+            return alert('Chưa thực hiện thay đổi nào!');
+        }
+
+        const url = API_Nanostream.CHANGE_TAGS.replace(':id', stream.streamId);
+        const res = await sendStreamReq(url, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ tags: tags})
+        });
+
+        if(res.ok){
+            return alert('Cập nhật tag cho stream thành công!');
+        }
+
+        return alert('Lỗi quá trình cập nhật tag!');
+    }
+
     console.log('tag: ', inputSetting.tag);
-    console.log('all tag: ', tags)
+    console.log('all tag: ', tags);
+    console.log('stream: ', stream);
     return(
         <Dialog open={open} onClose={onClose} scroll="paper" maxWidth="md" fullWidth>
             <DialogTitle>Cài đặt Phát trực tiếp</DialogTitle>
@@ -96,7 +112,7 @@ const SettingStreamJSX = (props) => {
                         </div>
                     </div>
                 </div>
-                <Button variant="contained">Lưu thay đổi</Button>
+                <Button variant="contained" onClick={handleChangeTag}>Lưu thay đổi</Button>
             </div>
         </Dialog>
     )

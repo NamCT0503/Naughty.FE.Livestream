@@ -14,13 +14,55 @@
     padding: 10px 0;
 }
 
+/* # Phần khởi tạo stream */
+.area-choose-thumbnail.stream{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+}
+.area-choose-thumbnail.stream span ~ div {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.area-choose-thumbnail.stream span ~ div::before,
+.area-choose-thumbnail.stream span ~ div::after{
+    content: "";
+    width: 150px;
+    height: 1px;
+    background-color: #f4f4f4;
+}
+.area-choose-thumbnail.stream span ~ div::before{
+    margin-right: 10px;
+}
+.area-choose-thumbnail.stream span ~ div::after{
+    margin-left: 10px;
+}
+
+.area-preview-img-thumbnail{
+    height: 200px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.area-preview-img-thumbnail img{
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
 
 /* # Phần livestream */
 .wrap-container.livestream{
     border: 1px solid red;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     padding: 10px;
 }
 
@@ -41,7 +83,7 @@
 
 .area-btn-options{
     border: 1px solid red;
-    width: 95%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 5px;
@@ -162,7 +204,9 @@ button{
 }
 /*  */
 
+/* # Khung thông tin stream */
 .container-info.livestream{
     border: 1px solid salmon;
     flex-grow: 0.35;
+    height: 100%;
 }

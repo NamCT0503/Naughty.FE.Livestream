@@ -16,7 +16,12 @@ export const API_SERVER = {
 
     // === Creator ===
     //Stream
-    GET_ALL_STREAM_OWNER: `${DOMAIN_SERVER}/api/user/stream/get-all-streams-by/:creator_id/:page`
+    GET_ALL_STREAM_OWNER: `${DOMAIN_SERVER}/api/user/stream/get-all-streams-by/:creator_id/:page`,
+    GET_STREAM_BY_ID: `${DOMAIN_SERVER}/api/user/stream/get-stream/:streamid`,
+    CREATE_STREAM: `${DOMAIN_SERVER}/api/user/stream/create`,
+    //Thumbnail
+    GETLIST_THUMBNAIL: `${DOMAIN_SERVER}/api/user/thumbnail/get-list`,
+    CREATE_THUMBNAIL: `${DOMAIN_SERVER}/api/user/thumbnail/create`
 }
 
 export const API_Nanostream = {
