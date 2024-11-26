@@ -203,6 +203,74 @@ const Livestream = () => {
         }
     }
 
+    const toggleMedia = (isCamera) => {
+        if(!streamVideo){
+            return alert('Chưa cấp quyền truy cập camera/mic!');
+        }
+
+        // Phần tắt cam chưa hoạt động như mong đợi do phần xử lý track video của webrtc.
+        if(isCamera){
+            const videoTracks = streamVideo.getVideoTracks();
+            videoTracks.forEach((track) => {
+                console.log('track video: ', track)
+                if (track.enabled) {
+                    // Tắt camera: Dừng track hiện tại và thêm track trống
+                    track.stop();
+    
+                    // Tạo track trống
+                    const emptyCanvas = document.createElement('canvas');
+                    emptyCanvas.width = 640;
+                    emptyCanvas.height = 480;
+                    const emptyStream = emptyCanvas.captureStream();
+                    const emptyTrack = emptyStream.getVideoTracks()[0];
+    
+                    updatePeerConnectionTrack(track, emptyTrack);
+
+                    // Thay thế track hiện tại bằng track trống
+                    streamVideo.removeTrack(track);
+                    streamVideo.addTrack(emptyTrack);
+                } else {
+                    // Bật lại camera: Lấy track mới từ thiết bị
+                    navigator.mediaDevices.getUserMedia({ video: true }).then((newStream) => {
+                        const newTrack = newStream.getVideoTracks()[0];
+    
+                        // Thay thế track trống bằng track mới
+                        streamVideo.getTracks().forEach((t) => {
+                            if (t.readyState === 'ended') {
+                                streamVideo.removeTrack(t);
+                            }
+                        });
+                        streamVideo.addTrack(newTrack);
+                    });
+                }
+            });
+
+            setIconCam(icon => icon===cam_on? cam_off: cam_on);
+        } else {
+            const audioTracks = streamVideo.getAudioTracks();
+            audioTracks.forEach(tracks => {
+                tracks.enabled = !tracks.enabled
+            });
+
+            setIconMic(icon => icon===mic_on? mic_off: mic_on);
+        }
+    }
+
+    const updatePeerConnectionTrack = (oldTrack, newTrack) => {
+        if(!streamVideo || !peerConnection) return alert('Track Media chưa sẵn sàng!');
+
+        const sender = peerConnection.getSenders().find(s => s.track===oldTrack);
+        if(sender){
+            // Thay thế track cũ bằng track mới
+            sender.replaceTrack(newTrack);
+            console.log('Track updated in peer connection!');
+        } else {
+            // Thêm track mới nếu không tìm thấy
+            peerConnection.addTrack(newTrack, streamVideo);
+            console.log('New track added to peer connection!');
+        }
+    }
+
     console.log('info: ', infoStream);
     // console.log('stream id record: ', recordStreamId);
     console.log('stream video: ', streamVideo)
@@ -241,8 +309,8 @@ const Livestream = () => {
                     <video className="frame-video-stream" ref={videoRef} autoPlay playsInline></video>
                     <div className="area-btn-options">
                         <div className="btn-media">
-                            <button>{iconMic}</button>
-                            <button>{iconCam}</button>
+                            <button onClick={() => toggleMedia(false)}>{iconMic}</button>
+                            <button onClick={() => toggleMedia(true)}>{iconCam}</button>
                         </div>
                         <div className="btn-start-live">
                             <Button variant="contained" onClick={isStartStream? handleStartStream: handleStopLivestream}>

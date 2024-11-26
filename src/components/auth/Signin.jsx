@@ -67,7 +67,12 @@ const SigninJSX = () => {
                 Cookie.set('refreshToken', dataRes.refreshToken);
                 Cookie.set('role', role? role: 'admin');
                 Cookie.set('sub', sub);
-                navigate('/creator');
+                
+                if(role){
+                    if(role==='creator') navigate('/creator');
+                    if(role==='user') navigate('/user');
+                } else navigate('/admin');
+
                 return alert('Đăng nhập thành công!');
             }
 

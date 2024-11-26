@@ -6,6 +6,7 @@ import SigninJSX from './components/auth/Signin'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignupJSX from './components/auth/Signup'
 import CreatorIndex from './components/user/role.creator/Index'
+import UserApp from './components/user/role.user/Index'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='' element={<SigninJSX/>}></Route>
           <Route path='/signup' element={<SignupJSX/>}></Route>
           <Route path='/creator/*' element={<CreatorIndex/>}></Route>
+          <Route path='/user/*' element={<UserApp />} />
         </Routes>
       </BrowserRouter>
     </>

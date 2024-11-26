@@ -1,0 +1,99 @@
+#root-user{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container-header.user-index,
+.container-view.user-index,
+.container-nav-bottom.user-index {
+    height: 100% !important;
+}
+
+.wrap-container.user-index{
+    border: 1px solid red;
+    display: grid;
+    height: 100vh;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 8fr 0.5fr;
+    grid-template-areas: 
+        'header'
+        'view'
+        'nav-bottom'
+    ;
+}
+
+
+/* # Phần header */
+.container-header.user-index{
+    /* border: 1px solid blue; */
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.container-header.user-index h3{
+    cursor: pointer;
+}
+
+.area-search.user-index{
+    /* position: relative; */
+    border-radius: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.area-search.user-index:hover{
+    border: 1px solid #121212;
+}
+.area-search.user-index:hover .btn-search.user-index{
+    background-color: #ede5e5;
+}
+.area-search.user-index.dark-mode:hover{
+    border: 1px solid #fff;
+}
+.area-search.user-index.dark-mode:hover .btn-search.user-index.dark-mode{
+    background-color: #414040;
+}
+.area-search.user-index input {
+    width: 90%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin: 8px 0px 8px 10px;
+    background-color: transparent;
+}
+.area-search.user-index.dark-mode input::placeholder {
+    color: #fff;
+}
+.btn-search.user-index{
+    /* border: 1px solid yellow; */
+    border-radius: 0px 30px 30px 0px;
+    position: relative;
+    width: 10%;
+    height: 45px;
+    cursor: pointer;
+}
+.btn-search.user-index svg{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+}
+
+
+/* Phần xem Stream */
+.container-view.user-index{
+    grid-area: view;
+}
+
+
+/* Phần nav-bottom */
+.container-nav-bottom.user-index{
+    grid-area: nav-bottom;
+    justify-content: space-evenly;
+}
