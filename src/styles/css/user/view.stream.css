@@ -1,0 +1,50 @@
+.wrap-container.view-stream.vertical-menu{
+    /* border: 1px solid red; */
+    height: 100%;
+    max-height: 81vh;
+    display: grid;
+    /* grid-template-columns: 1fr 5fr; */
+    grid-template-rows: 1fr;
+    overflow: hidden;
+}
+
+/* Phần menu dọc */
+.container-vertical-menu.view-stream{
+    /* border: 1px solid yellow; */
+    position: relative;
+}
+
+.btn-show-hide.vertical-menu.view-stream{
+    position: absolute;
+    border: 1px solid gray;
+    border-radius: 0px 20px 20px 0px;
+    /* right: -20%; */
+    top: 50%;
+    transform: translate(5%, -50%);
+    width: 15px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.btn-show-hide.vertical-menu.view-stream i{
+    color: rgba(22, 24, 35, 0.12);
+}
+.btn-show-hide.vertical-menu.view-stream:hover i{
+    color: rgba(22, 24, 35, 1);
+}
+.btn-show-hide.vertical-menu.view-stream.dark-mode i{
+    color: rgba(255, 255, 255, 0.12);
+}
+.btn-show-hide.vertical-menu.view-stream.dark-mode:hover i{
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Phần hiển thị livestream */
+.container-view-stream.view-stream{
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

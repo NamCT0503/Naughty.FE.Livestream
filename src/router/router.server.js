@@ -1,6 +1,8 @@
 export const DOMAIN_SERVER = 'http://localhost:5000';
 
 export const API_SERVER = {
+    DEFAULT_AVATAR: `${DOMAIN_SERVER}/1731407107915-642157206.jpeg`,
+
     // ===== Both =====
     GET_PROFILE: `${DOMAIN_SERVER}/api/auth/get-profile`,
 
@@ -13,6 +15,8 @@ export const API_SERVER = {
     //Auth
     USER_SIGNIN: `${DOMAIN_SERVER}/api/user/signin`,
     USER_SIGNUP: `${DOMAIN_SERVER}/api/user/signup`,
+    //Stream
+    GETLIST_STREAM_MOST_VIEW: `${DOMAIN_SERVER}/api/user/stream/top-most-view`,
 
     // === Creator ===
     //Stream

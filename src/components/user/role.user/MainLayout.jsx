@@ -38,7 +38,7 @@ const IndexLayoutUser = () => {
                             }}
                         >
                             <h3>LiveApp</h3>
-                            <Grid size={{ md: 5}}>
+                            <Grid size={{ xs: 0, sm: 0, md: 5}}>
                                 <div 
                                     className={`area-search user-index ${mode==='light'? '': 'dark-mode'}`}
                                     style={{
@@ -66,8 +66,8 @@ const IndexLayoutUser = () => {
 
                     <Grid size={12}>
                         {/* Phần xem Stream */}
-                        <Box textAlign={"center"} mb={2} className="container-view user-index">
-                            <ViewStreamJSX/>
+                        <Box textAlign={"center"} className="container-view user-index">
+                            <ViewStreamJSX mode={mode} />
                         </Box>
                         {/* Phần xem Stream */}
                     </Grid>

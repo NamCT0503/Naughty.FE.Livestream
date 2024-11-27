@@ -1,0 +1,79 @@
+.wrap-container.vertical-menu-jsx{
+    /* border: 3px solid green; */
+    height: 100%;
+    max-height: 81vh;
+    overflow-y: scroll;
+    position: relative;
+}
+.wrap-container.vertical-menu-jsx::-webkit-scrollbar{
+    width: 0;
+}
+.wrap-container.vertical-menu-jsx:hover::-webkit-scrollbar{
+    width: 8px;
+}
+.wrap-container.vertical-menu-jsx::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+.wrap-container.vertical-menu-jsx::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+.wrap-container.vertical-menu-jsx::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Phần LIVE Hot*/
+.container-stream-hot.vertical-menu-jsx{
+    /* border: 1px solid green; */
+    height: 10%;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.area-avatar-creator.vertical-menu-jsx{
+    width: 24%;
+    height: 90%;
+    border: 1px solid red;
+    padding: 5px;
+    border-radius: 50%;
+}
+.area-avatar-creator.vertical-menu-jsx img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.area-info-creator.vertical-menu-jsx{
+    width: 55%;
+    height: 100%;
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 2px;
+}
+.area-info-creator.vertical-menu-jsx>*{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.area-total-view.vertical-menu-jsx{
+    /* border: 1px solid salmon; */
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.area-total-view.vertical-menu-jsx span{
+    width: fit-content;
+    font-size: 10px;
+    margin-right: 2px;
+}
