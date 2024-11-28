@@ -2,12 +2,18 @@ import { API_SERVER, DOMAIN_SERVER } from "../../../../router/router.server";
 import "../../../../styles/css/user/show.live.css";
 
 const ShowLiveJSX = ({ stream }) => {    
-    const bgImage = stream?.thumbnails.users.avatar;
 
-    if(!stream || !stream.id){
+    if(!stream || (!stream.id && !stream.creator_id)){
         return(
             <span>Chọn LIVE phía bên trái để bắt đầu xem</span>
         )
+    }
+
+    let bgImage = '';
+    if(stream.id){
+        bgImage = stream?.thumbnails.users.avatar;
+    } else if(stream.creator_id){
+        bgImage = stream.avatar;
     }
 
     return(

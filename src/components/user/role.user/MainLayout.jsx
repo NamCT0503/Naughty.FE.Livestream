@@ -10,11 +10,14 @@ import { useState } from "react";
 import { useThemeContext } from "./ModeTheme";
 import "../../../styles/css/user/index.layout.css";
 import ViewStreamJSX from "./ViewStream";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 const IndexLayoutUser = () => {
     const [value, setValue] = useState('for-you');
 
     const { toggleTheme, mode } = useThemeContext();
+
+    const navigate = useNavigate();
 
     const handleChangeNav = (e, newValue) => {
         setValue(newValue);
@@ -67,7 +70,10 @@ const IndexLayoutUser = () => {
                     <Grid size={12}>
                         {/* Phần xem Stream */}
                         <Box textAlign={"center"} className="container-view user-index">
-                            <ViewStreamJSX mode={mode} />
+                            <Routes>
+                                <Route path="/" element={<ViewStreamJSX mode={mode} />} />
+                                <Route path="/favourites" element={<ViewStreamJSX mode={mode} />} />
+                            </Routes>
                         </Box>
                         {/* Phần xem Stream */}
                     </Grid>
@@ -79,16 +85,19 @@ const IndexLayoutUser = () => {
                                 label="Dành cho bạn"
                                 value={'for-you'}
                                 icon={<IconIndexPage/>}
+                                onClick={() => navigate('/user')}
                             />
                             <BottomNavigationAction
                                 label="Yêu thích"
                                 value={'favourite'}
                                 icon={<IconFavoritePage/>}
+                                onClick={() => navigate('/user/favourites')}
                             />
                             <BottomNavigationAction
                                 label="Tôi"
                                 value={'profile'}
                                 icon={<IconProfilePage/>}
+                                onClick={() => navigate('/user/profile')}
                             />
                         </BottomNavigation>
                         {/* Phần Nav-Bottom */}

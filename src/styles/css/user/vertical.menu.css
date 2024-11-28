@@ -23,7 +23,8 @@
 }
 
 /* Phần LIVE Hot*/
-.container-stream-hot.vertical-menu-jsx{
+.container-stream-hot.vertical-menu-jsx,
+.container-creator-hot.vertical-menu-jsx{
     /* border: 1px solid green; */
     height: 10%;
     margin: 10px 0;
@@ -37,7 +38,6 @@
 .area-avatar-creator.vertical-menu-jsx{
     width: 24%;
     height: 90%;
-    border: 1px solid red;
     padding: 5px;
     border-radius: 50%;
 }
@@ -47,9 +47,13 @@
     border-radius: 50%;
     object-fit: cover;
 }
+.container-stream-hot.vertical-menu-jsx .area-avatar-creator.vertical-menu-jsx{
+    border: 1px solid red;
+}
 
-.area-info-creator.vertical-menu-jsx{
-    width: 55%;
+.container-stream-hot.vertical-menu-jsx .area-info-creator.vertical-menu-jsx,
+.container-creator-hot.vertical-menu-jsx .area-info-creator.vertical-menu-jsx{
+    /* width: 55%; */
     height: 100%;
     /* border: 1px solid orange; */
     display: flex;
@@ -57,6 +61,12 @@
     justify-content: center;
     align-items: start;
     padding: 2px;
+}
+.container-stream-hot.vertical-menu-jsx .area-info-creator.vertical-menu-jsx{
+    width: 55%;
+}
+.container-creator-hot.vertical-menu-jsx .area-info-creator.vertical-menu-jsx{
+    width: 75%;
 }
 .area-info-creator.vertical-menu-jsx>*{
     overflow: hidden;
