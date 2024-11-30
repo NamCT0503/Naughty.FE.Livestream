@@ -18,9 +18,9 @@ export const API_SERVER = {
     //Stream
     GETLIST_STREAM_MOST_VIEW: `${DOMAIN_SERVER}/api/user/stream/top-most-view`,
     GETLIST_TOP_CREATOR_HOT: `${DOMAIN_SERVER}/api/user/stream/top-creator-hot/:date`,
+    GET_STREAM_URL_BY_CREATORID: `${DOMAIN_SERVER}/api/user/stream/get-stream-url/:creator_id`,
     //Follower
     GET_INFO_LIST_STREAMING: `${DOMAIN_SERVER}/api/user/follower/get-info-list-stream`,
-    GETLIST_CREATOR_FOLLOWED: `${DOMAIN_SERVER}/api/user/follower/get-all-creator-followed/:page`,
 
     // === Creator ===
     //Stream
