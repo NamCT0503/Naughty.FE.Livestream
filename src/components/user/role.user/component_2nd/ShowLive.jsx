@@ -3,7 +3,7 @@ import "../../../../styles/css/user/show.live.css";
 
 const ShowLiveJSX = ({ stream }) => {    
 
-    if(!stream || (!stream.id && !stream.creator_id)){
+    if(!stream || (!stream.id && !stream.creator_id && !stream.users)){
         return(
             <span>Chọn LIVE phía bên trái để bắt đầu xem</span>
         )
@@ -14,6 +14,8 @@ const ShowLiveJSX = ({ stream }) => {
         bgImage = stream?.thumbnails.users.avatar;
     } else if(stream.creator_id){
         bgImage = stream.avatar;
+    } else {
+        bgImage = stream.users.avatar;
     }
 
     return(
